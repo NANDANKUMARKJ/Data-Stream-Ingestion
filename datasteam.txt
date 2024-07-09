@@ -1,0 +1,22 @@
+class DataStream:
+  def __init__(self):
+    self.hash_map = {}
+
+  def should_output_data_str(self, time_stamp: int, data_string: str) -> bool:
+    if data_string not in self.hash_map:
+      self.hash_map[data_string] = time_stamp
+      return True
+    elif data_string in self.hash_map:
+      previous_time_stamp = self.hash_map[data_string]
+      if (time_stamp - previous_time_stamp) >= 5:
+        self.hash_map[data_string] = time_stamp
+        return True
+    return False
+
+data_stream = DataStream()
+print(data_stream.should_output_data_str(time_stamp=0, data_string='hello'))
+print(data_stream.should_output_data_str(time_stamp=1, data_string='world'))
+print(data_stream.should_output_data_str(time_stamp=6, data_string='hello'))
+print(data_stream.should_output_data_str(time_stamp=7, data_string='hello'))
+print(data_stream.should_output_data_str(time_stamp=8, data_string='world'))
+      
